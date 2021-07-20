@@ -13,17 +13,12 @@ const App = (function () {
   const init = function () {
     addRecipeModal.style.display = 'none';
     bookmarks.style.display = 'none';
-    ['hashchange', 'load'].forEach(ev => {
-      window.addEventListener(ev, showRecipe);
-    });
-
-    // window.addEventListener('hashchange', showRecipe);
-    // window.addEventListener('load', showRecipe);
+    recipeView.addHandlerRender(controlRecipe);
   };
 
   const recipeContainer = document.querySelector('.recipe');
 
-  const showRecipe = async function () {
+  const controlRecipe = async function () {
     try {
       const id = window.location.hash.slice(1);
       if (!id) return;
@@ -36,11 +31,11 @@ const App = (function () {
       // 2) rendering the recipe
       recipeView.render(model.state.recipe);
     } catch (err) {
-      alert(err);
+      recipeView.renderError();
     }
   };
 
-  return { recipeContainer, showRecipe, showRecipe, init };
+  return { controlRecipe, init };
 })();
 
 export { App };
