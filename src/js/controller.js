@@ -1,5 +1,5 @@
 import * as model from './model';
-import recipeView from '../views/recipeView';
+import recipeView from './views/recipeView';
 
 /////////////////////////////
 // Controller
@@ -23,25 +23,15 @@ const App = (function () {
 
   const recipeContainer = document.querySelector('.recipe');
 
-  const timeout = function (s) {
-    return new Promise(function (_, reject) {
-      setTimeout(function () {
-        reject(new Error(`Request took too long! Timeout after ${s} second`));
-      }, s * 1000);
-    });
-  };
-
   const showRecipe = async function () {
     try {
       const id = window.location.hash.slice(1);
-
       if (!id) return;
-      recipeView.renderSpinner(recipeContainer);
+      recipeView.renderSpinner();
 
       // 1) loading the recipe
 
       await model.loadRecipe(id);
-      const { recipe } = model.state;
 
       // 2) rendering the recipe
       recipeView.render(model.state.recipe);
@@ -50,7 +40,7 @@ const App = (function () {
     }
   };
 
-  return { recipeContainer, showRecipe, showRecipe, timeout, init };
+  return { recipeContainer, showRecipe, showRecipe, init };
 })();
 
 export { App };
