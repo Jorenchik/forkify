@@ -1,12 +1,14 @@
-import "./scss/style.scss";
+import './scss/style.scss';
+import 'core-js';
+import 'regenerator-runtime';
 
-import { App } from "./js/controller";
+import { App } from './js/controller';
 
-App.showRecipe();
+App.init();
 
 if (module.hot) {
-  module.hot.accept("./js/controller", function () {
-    console.log("Accepting the updated constroller module!");
-    App.showRecipe();
+  module.hot.accept('./js/controller', function () {
+    console.log('Accepting the updated constroller module!');
+    // App.showRecipe();
   });
 }

@@ -1,15 +1,16 @@
-@import "base";
-@import "components";
-@import "header";
-@import "preview";
-@import "searchResults";
-@import "recipe";
-@import "upload";
+@import 'base';
+@import 'components';
+@import 'header';
+@import 'preview';
+@import 'searchResults';
+@import 'recipe';
+@import 'upload';
 
 h1 {
-  color: red;
+  transition: 0.4s;
 
   &:hover {
-    color: blue;
+    text-shadow: 4px 4px gray;
+    transition: 0.2s;
   }
 }
