@@ -8,7 +8,21 @@ App.init();
 
 if (module.hot) {
   module.hot.accept('./js/controller', function () {
-    console.log('Accepting the updated constroller module!');
-    // App.showRecipe();
+    App.init();
+  });
+  module.hot.accept('./js/model', function () {
+    App.init();
+  });
+  module.hot.accept('./js/views/recipeView', function () {
+    App.init();
+  });
+  module.hot.accept('./js/views/searchView', function () {
+    App.init();
+  });
+  module.hot.accept('./js/views/resultsView', function () {
+    App.init();
+  });
+  module.hot.accept('./js/views/View', function () {
+    App.init();
   });
 }

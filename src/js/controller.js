@@ -1,9 +1,7 @@
 import * as model from './model';
 import recipeView from './views/recipeView';
-
-/////////////////////////////
-// Controller
-/////////////////////////////
+import searchView from './views/searchView';
+import resultsView from './views/resultsView';
 
 const App = (function () {
   const addRecipeModal = document.querySelector('.add-recipe-window');
@@ -14,9 +12,8 @@ const App = (function () {
     addRecipeModal.style.display = 'none';
     bookmarks.style.display = 'none';
     recipeView.addHandlerRender(controlRecipe);
+    searchView.addHandlerSearch(controlSearchResults);
   };
-
-  const recipeContainer = document.querySelector('.recipe');
 
   const controlRecipe = async function () {
     try {
@@ -24,14 +21,24 @@ const App = (function () {
       if (!id) return;
       recipeView.renderSpinner();
 
-      // 1) loading the recipe
-
       await model.loadRecipe(id);
-
-      // 2) rendering the recipe
       recipeView.render(model.state.recipe);
     } catch (err) {
       recipeView.renderError();
+    }
+  };
+
+  const controlSearchResults = async function () {
+    try {
+      resultsView.renderSpinner();
+
+      const query = searchView.getQuery();
+      if (!query) return;
+      await model.loadSearchResults(query);
+      resultsView.render(model.state.search.results);
+    } catch (err) {
+      throw err;
+      // searchView.renderError();
     }
   };
 
