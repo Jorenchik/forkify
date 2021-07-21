@@ -2,6 +2,7 @@ import * as model from './model';
 import recipeView from './views/recipeView';
 import searchView from './views/searchView';
 import resultsView from './views/resultsView';
+import paginationView from './views/paginationView';
 
 const App = (function () {
   const addRecipeModal = document.querySelector('.add-recipe-window');
@@ -34,7 +35,9 @@ const App = (function () {
       const query = searchView.getQuery();
       if (!query) return;
       await model.loadSearchResults(query);
-      resultsView.render(model.getSearchResultsPage(1));
+      resultsView.render(model.getSearchResultsPage(6));
+
+      paginationView.render(model.state.search);
     } catch (err) {
       throw err;
       // searchView.renderError();
