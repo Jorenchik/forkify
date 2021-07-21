@@ -14,6 +14,7 @@ const App = (function () {
     bookmarks.style.display = 'none';
     recipeView.addHandlerRender(controlRecipe);
     searchView.addHandlerSearch(controlSearchResults);
+    paginationView.addHandlerClick(controlPagination);
   };
 
   const controlRecipe = async function () {
@@ -35,13 +36,18 @@ const App = (function () {
       const query = searchView.getQuery();
       if (!query) return;
       await model.loadSearchResults(query);
-      resultsView.render(model.getSearchResultsPage(6));
+      resultsView.render(model.getSearchResultsPage());
 
       paginationView.render(model.state.search);
     } catch (err) {
       throw err;
       // searchView.renderError();
     }
+  };
+
+  const controlPagination = function (goToPage) {
+    resultsView.render(model.getSearchResultsPage(goToPage));
+    paginationView.render(model.state.search);
   };
 
   return { controlRecipe, init };
