@@ -5,6 +5,7 @@ import { getJSON } from './helpers';
 export const state = {
   recipe: {},
   search: {
+    page: 1,
     results: [],
   },
 };
@@ -47,7 +48,9 @@ export const loadSearchResults = async function (query) {
   }
 };
 
-export const getSearchResultsPage = function (page) {
+export const getSearchResultsPage = function (page = 1) {
+  state.search.page = page;
+
   const start = (page - 1) * RESULTS_PER_PAGE;
   const end = page * RESULTS_PER_PAGE;
 
