@@ -66,17 +66,24 @@ export default class View {
     ['hashchange', 'load'].forEach(ev => window.addEventListener(ev, handler));
   }
 
+  /**
+   * Replaces updated nodes in existing DOM.
+   *
+   * @param {*} data
+   */
   update(data) {
     this._data = data;
     const newMarkup = this._generateMarkup();
-
     const newDOM = document.createRange().createContextualFragment(newMarkup);
     const newElements = newDOM.querySelectorAll('*');
     const currentElements = this._parentElement.querySelectorAll('*');
 
     newElements.forEach((newEl, i) => {
       const curEl = currentElements[i];
-      if (!newEl.isEqualNode(curEl) && newEl.firstChild.nodeValue.trim() !== '')
+      if (
+        !newEl.isEqualNode(curEl) &&
+        newEl.firstChild?.nodeValue.trim() !== ''
+      )
         curEl.textContent = newEl.textContent;
 
       if (!newEl.isEqualNode(curEl))

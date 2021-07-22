@@ -17,6 +17,7 @@ const Controller = (function () {
     bookmarks.style.display = 'none';
     recipeView.addHandlerRender(controlRecipe);
     recipeView.addHandlerUpdateServings(controlServings);
+    recipeView.addHandlerAddBookmark(controlAddBookmark);
     searchView.addHandlerSearch(controlSearchResults);
     paginationView.addHandlerClick(controlPagination);
   };
@@ -63,12 +64,23 @@ const Controller = (function () {
       resultsView.renderSpinner();
       const query = searchView.getQuery();
       if (!query) return;
+      model.state.page = 1;
       await model.loadSearchResults(query);
       resultsView.render(model.getSearchResultsPage());
       paginationView.render(model.state.search);
     } catch (err) {
       throw err;
     }
+  };
+
+  const controlAddBookmark = function () {
+    if (model.state.recipe.bookmarked) {
+      model.removeBookmark(model.state.recipe.id);
+    } else {
+      model.addBookmark(model.state.recipe);
+    }
+
+    recipeView.update(model.state.recipe);
   };
 
   /**
@@ -79,7 +91,6 @@ const Controller = (function () {
   const controlPagination = function (goToPage) {
     resultsView.render(model.getSearchResultsPage(goToPage));
     paginationView.render(model.state.search);
-    // paginationView.update(model.state.search);
   };
 
   return { controlRecipe, init };
