@@ -16,6 +16,7 @@ const Controller = (function () {
     addRecipeModal.style.display = 'none';
     bookmarks.style.display = 'none';
     recipeView.addHandlerRender(controlRecipe);
+    recipeView.addHandlerUpdateServings(controlServings);
     searchView.addHandlerSearch(controlSearchResults);
     paginationView.addHandlerClick(controlPagination);
   };
@@ -35,6 +36,19 @@ const Controller = (function () {
     } catch (err) {
       recipeView.renderError();
     }
+  };
+
+  /**
+   * Upadtes servings according to serving change, returns immeadiately if new serving size is less than 1.
+   *
+   * @param {*} servingChange
+   * @returns
+   */
+  const controlServings = function (servingChange) {
+    const newServings = model.state.recipe.servings + servingChange;
+    if (newServings < 1) return;
+    model.updateServings(newServings);
+    recipeView.render(model.state.recipe);
   };
 
   /**

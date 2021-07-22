@@ -74,3 +74,18 @@ export const getSearchResultsPage = function (page = 1) {
 
   return state.search.results.slice(start, end);
 };
+
+/**
+ * Updates recipe serving size in current recipe, renders new information.
+ *
+ *
+ * @param {*} newServings
+ */
+export const updateServings = function (newServings) {
+  state.recipe.ingredients.forEach(ing => {
+    // newQt = oldQt * newServings / oldServings
+    ing.quantity = (ing.quantity * newServings) / state.recipe.servings;
+  });
+
+  state.recipe.servings = newServings;
+};

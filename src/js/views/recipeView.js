@@ -41,7 +41,7 @@ class RecipeView extends View {
           }</span>
           <span class="recipe__info-text">servings</span>
           <div class="recipe__info-buttons">
-            <button class="btn--tiny btn--increase-servings">
+            <button class="btn--tiny btn--decrease-servings">
               <svg>
                 <use href="img/icons.svg#icon-minus-circle"></use>
               </svg>
@@ -115,6 +115,23 @@ class RecipeView extends View {
         </a>
       </div>
       `;
+  }
+
+  /**
+   * Adds handler on serving change buttons.
+   *
+   * @param {*} handler
+   */
+  addHandlerUpdateServings(handler) {
+    this._parentElement.addEventListener('click', function (e) {
+      const target = e.target.closest('.btn--tiny');
+      if (target.classList.contains('btn--increase-servings')) {
+        handler(1);
+      }
+      if (target.classList.contains('btn--decrease-servings')) {
+        handler(-1);
+      }
+    });
   }
 
   /**
