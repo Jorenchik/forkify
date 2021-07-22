@@ -31,6 +31,8 @@ const Controller = (function () {
       if (!id) return;
       recipeView.renderSpinner();
 
+      resultsView.update(model.getSearchResultsPage());
+
       await model.loadRecipe(id);
       recipeView.render(model.state.recipe);
     } catch (err) {
@@ -48,7 +50,8 @@ const Controller = (function () {
     const newServings = model.state.recipe.servings + servingChange;
     if (newServings < 1) return;
     model.updateServings(newServings);
-    recipeView.render(model.state.recipe);
+    // recipeView.render(model.state.recipe);
+    recipeView.update(model.state.recipe);
   };
 
   /**
@@ -76,6 +79,7 @@ const Controller = (function () {
   const controlPagination = function (goToPage) {
     resultsView.render(model.getSearchResultsPage(goToPage));
     paginationView.render(model.state.search);
+    // paginationView.update(model.state.search);
   };
 
   return { controlRecipe, init };
