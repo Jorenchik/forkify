@@ -5,10 +5,21 @@ class ResultsView extends View {
   _errorMessage = 'No recipes found for your query. Please, try again!';
   _message;
 
+  /**
+   * Generates markup of search results.
+   *
+   * @returns string of search results HTML markup
+   */
   _generateMarkup() {
     return this._data.map(this._generateMarkupPreview).join('');
   }
 
+  /**
+   * Generates one search result preview.
+   *
+   * @param {*} result search result data
+   * @returns search result preview string of HTML markup
+   */
   _generateMarkupPreview(result) {
     return `<li class="preview">
       <a class="preview__link" href="#${result.id}">

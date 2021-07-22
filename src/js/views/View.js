@@ -1,5 +1,10 @@
 export default class View {
   _data;
+
+  /**
+   * Renders a spinner on parent element, clearing its inner Html.
+   *
+   */
   renderSpinner() {
     const markup = `
     <div class="spinner">
@@ -8,9 +13,15 @@ export default class View {
           </svg>
         </div>
     `;
-    this._parentElement.innerHTML = '';
+    this._clear();
     this._parentElement.insertAdjacentHTML('afterBegin', markup);
   }
+
+  /**
+   * Renders an error message in parent element.
+   *
+   * @param {*} message
+   */
   renderError(message = this._errorMessage) {
     const markup = `
       <div class="error">
@@ -26,6 +37,11 @@ export default class View {
     this._parentElement.insertAdjacentHTML('afterBegin', markup);
   }
 
+  /**
+   * Renders a message in parent element.
+   *
+   * @param {*} message
+   */
   renderMessage(message = this._message) {
     const markup = `
       <div class="message">
@@ -41,20 +57,34 @@ export default class View {
     this._parentElement.insertAdjacentHTML('afterBegin', markup);
   }
 
+  /**
+   * Adds render handler on both hashchange and load events.
+   *
+   * @param {*} handler
+   */
   addHandlerRender(handler) {
     ['hashchange', 'load'].forEach(ev => window.addEventListener(ev, handler));
   }
 
+  /**
+   * Renders markup for given data, if there is no data - renders an error.
+   *
+   * @param {*} data
+   * @returns void|ERROR
+   */
   render(data) {
     if (!data || (Array.isArray(data) && data.length === 0))
       return this.renderError();
-
     this._data = data;
     const markup = this._generateMarkup();
     this._clear();
     this._parentElement.insertAdjacentHTML('afterBegin', markup);
   }
 
+  /**
+   * Clears parent element inner html.
+   *
+   */
   _clear() {
     this._parentElement.innerHTML = '';
   }

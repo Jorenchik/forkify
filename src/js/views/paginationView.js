@@ -3,6 +3,11 @@ import View from './View';
 class PaginationView extends View {
   _parentElement = document.querySelector('.pagination');
 
+  /**
+   * Adds handler on button elements (click event)
+   *
+   * @param {*} handler
+   */
   addHandlerClick(handler) {
     this._parentElement.addEventListener('click', function (e) {
       const btn = e.target.closest('.btn--inline');
@@ -13,6 +18,11 @@ class PaginationView extends View {
     });
   }
 
+  /**
+   * Generates pagintation buttons according to data,
+   *
+   * @returns string of button HTML markup
+   */
   _generateMarkup() {
     const currentPage = this._data.page;
     const numPages = Math.ceil(

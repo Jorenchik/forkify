@@ -4,11 +4,14 @@ import searchView from './views/searchView';
 import resultsView from './views/resultsView';
 import paginationView from './views/paginationView';
 
-const App = (function () {
+const Controller = (function () {
   const addRecipeModal = document.querySelector('.add-recipe-window');
   const bookmarks = document.querySelector('.bookmarks');
-  const body = document.querySelector('body');
 
+  /**
+   * Runs application, taking it to initial state.
+   *
+   */
   const init = function () {
     addRecipeModal.style.display = 'none';
     bookmarks.style.display = 'none';
@@ -17,6 +20,10 @@ const App = (function () {
     paginationView.addHandlerClick(controlPagination);
   };
 
+  /**
+   * Renders recipe with id from hash.
+   *
+   */
   const controlRecipe = async function () {
     try {
       const id = window.location.hash.slice(1);
@@ -30,6 +37,10 @@ const App = (function () {
     }
   };
 
+  /**
+   * Renders search results, returns imideately if there is no query.
+   *
+   */
   const controlSearchResults = async function () {
     try {
       resultsView.renderSpinner();
@@ -37,14 +48,17 @@ const App = (function () {
       if (!query) return;
       await model.loadSearchResults(query);
       resultsView.render(model.getSearchResultsPage());
-
       paginationView.render(model.state.search);
     } catch (err) {
       throw err;
-      // searchView.renderError();
     }
   };
 
+  /**
+   * Renders results of given page and new pagination.
+   *
+   * @param {*} goToPage Page which results should be shown of
+   */
   const controlPagination = function (goToPage) {
     resultsView.render(model.getSearchResultsPage(goToPage));
     paginationView.render(model.state.search);
@@ -53,4 +67,4 @@ const App = (function () {
   return { controlRecipe, init };
 })();
 
-export { App };
+export { Controller };

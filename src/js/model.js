@@ -1,7 +1,10 @@
-import { async } from 'regenerator-runtime';
 import { API_URL, RESULTS_PER_PAGE } from './config';
 import { getJSON } from './helpers';
 
+/**
+ * State object
+ *
+ */
 export const state = {
   recipe: {},
   search: {
@@ -11,6 +14,11 @@ export const state = {
   },
 };
 
+/**
+ * Loads recipe by id.
+ *
+ * @param {*} id
+ */
 export const loadRecipe = async function (id) {
   try {
     const data = await getJSON(`${API_URL}/${id}`);
@@ -27,11 +35,15 @@ export const loadRecipe = async function (id) {
       ingredients: fetchedRecipe.ingredients,
     };
   } catch (err) {
-    console.error(err);
     throw err;
   }
 };
 
+/**
+ * Loads search results by given query.
+ *
+ * @param {*} query search query
+ */
 export const loadSearchResults = async function (query) {
   try {
     const { data } = await getJSON(`${API_URL}?search=${query}`);
@@ -44,11 +56,16 @@ export const loadSearchResults = async function (query) {
       };
     });
   } catch (err) {
-    console.error(err);
     throw err;
   }
 };
 
+/**
+ * Returns search results of given page.
+ *
+ * @param {*} page
+ * @returns
+ */
 export const getSearchResultsPage = function (page = 1) {
   state.search.page = page;
 

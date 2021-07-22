@@ -7,6 +7,11 @@ class RecipeView extends View {
     'Sorry, we could not find the recipe with such id. Please try another one!';
   _message;
 
+  /**
+   * Generates markup of recipe view.
+   *
+   * @returns string of generated HTML markup
+   */
   _generateMarkup() {
     return `
       <figure class="recipe__fig">
@@ -17,7 +22,6 @@ class RecipeView extends View {
           <span>${this._data.title}</span>
         </h1>
       </figure>
-  
       <div class="recipe__details">
         <div class="recipe__info">
           <svg class="recipe__info-icon">
@@ -36,7 +40,6 @@ class RecipeView extends View {
             this._data.servings
           }</span>
           <span class="recipe__info-text">servings</span>
-  
           <div class="recipe__info-buttons">
             <button class="btn--tiny btn--increase-servings">
               <svg>
@@ -62,7 +65,6 @@ class RecipeView extends View {
           </svg>
         </button>
       </div>
-  
       <div class="recipe__ingredients">
         <h2 class="heading--2">Recipe ingredients</h2>
         <ul class="recipe__ingredient-list">
@@ -92,7 +94,6 @@ class RecipeView extends View {
             .join('')}
         </ul>
       </div>
-  
       <div class="recipe__directions">
         <h2 class="heading--2">How to cook it</h2>
         <p class="recipe__directions-text">
@@ -116,6 +117,12 @@ class RecipeView extends View {
       `;
   }
 
+  /**
+   * Converts recipe units to more human readable units.
+   *
+   * @param {*} ing
+   * @returns
+   */
   _generateMarkupIndgredient(ing) {
     return new Fraction(ing.quantity);
   }

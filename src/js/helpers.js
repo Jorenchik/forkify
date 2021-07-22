@@ -1,5 +1,11 @@
 import { REQUEST_TIMEOUT_SECONDS } from './config';
 
+/**
+ * Returns promise that will be rejected after given seconds.
+ *
+ * @param {*} s
+ * @returns
+ */
 export const timeout = function (s) {
   return new Promise(function (_, reject) {
     setTimeout(function () {
@@ -8,11 +14,15 @@ export const timeout = function (s) {
   });
 };
 
+/**
+ * Returns promise of fetch of json data, if result is not received returns error.
+ *
+ *
+ * @param {*} url fetch url
+ * @returns json data Promise|ERROR
+ */
 export const getJSON = async function (url) {
   try {
-    // const res = await fetch(
-    //   `${API_URL}/${id}?key=c839caa0-136c-4f5b-881a-530fef098fe9`
-    //   );
     const res = await Promise.race([
       fetch(url),
       timeout(REQUEST_TIMEOUT_SECONDS),
