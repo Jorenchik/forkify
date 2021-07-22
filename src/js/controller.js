@@ -16,9 +16,11 @@ const Controller = (function () {
   const init = function () {
     addRecipeModal.style.display = 'none';
     bookmarks.style.display = 'none';
+    model.init();
     recipeView.addHandlerRender(controlRecipe);
     recipeView.addHandlerUpdateServings(controlServings);
     recipeView.addHandlerAddBookmark(controlAddBookmark);
+    bookmarksView.addHandlerRender(controlBookmarks);
     searchView.addHandlerSearch(controlSearchResults);
     paginationView.addHandlerClick(controlPagination);
   };
@@ -55,6 +57,11 @@ const Controller = (function () {
     model.updateServings(newServings);
     // recipeView.render(model.state.recipe);
     recipeView.update(model.state.recipe);
+  };
+
+  const controlBookmarks = function () {
+    bookmarksView.render(model.state.bookmarks);
+    bookmarks.style.display = 'block';
   };
 
   /**
@@ -98,7 +105,9 @@ const Controller = (function () {
     paginationView.render(model.state.search);
   };
 
-  return { controlRecipe, init };
+  const clearBookmarks = model.clearBookmarks;
+
+  return { controlRecipe, init, clearBookmarks };
 })();
 
 export { Controller };
