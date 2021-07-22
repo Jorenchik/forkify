@@ -2,6 +2,7 @@ import * as model from './model';
 import recipeView from './views/recipeView';
 import searchView from './views/searchView';
 import resultsView from './views/resultsView';
+import bookmarksView from './views/bookmarksView';
 import paginationView from './views/paginationView';
 
 const Controller = (function () {
@@ -33,6 +34,7 @@ const Controller = (function () {
       recipeView.renderSpinner();
 
       resultsView.update(model.getSearchResultsPage());
+      bookmarksView.update(model.state.bookmarks);
 
       await model.loadRecipe(id);
       recipeView.render(model.state.recipe);
@@ -81,6 +83,9 @@ const Controller = (function () {
     }
 
     recipeView.update(model.state.recipe);
+
+    bookmarksView.render(model.state.bookmarks);
+    bookmarks.style.display = 'block';
   };
 
   /**
