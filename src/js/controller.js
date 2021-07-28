@@ -7,6 +7,11 @@ import paginationView from './views/paginationView';
 import addRecipeView from './views/addRecipeView';
 import { FORM_SUCESS_TIMEOUT_SEC, MODAL_CLOSE_SEC } from './config';
 
+window.addEventListener('load', () => {
+  document.querySelector('.wrapper').style.display = 'block';
+  document.querySelector('.spinner__overlay').style.display = 'none';
+});
+
 const Controller = (function () {
   const addRecipeModal = document.querySelector('.add-recipe-window');
   const bookmarks = document.querySelector('.bookmarks');
