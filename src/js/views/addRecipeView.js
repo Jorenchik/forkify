@@ -10,21 +10,27 @@ class AddRecipeView extends View {
 
   constructor() {
     super();
+    console.log('constructor');
     this._addHandlerShowWindow();
     this._addHandlerHideWindow();
   }
 
-  toggleWindow() {
-    this._overlay.classList.toggle('hidden');
-    this._window.classList.toggle('hidden');
+  hideWindow() {
+    this._overlay.classList.add('hidden');
+    this._window.classList.add('hidden');
+  }
+
+  showWindow() {
+    this._overlay.classList.remove('hidden');
+    this._window.classList.remove('hidden');
   }
 
   _addHandlerShowWindow() {
-    this._btnOpen.addEventListener('click', this.toggleWindow.bind(this));
+    this._btnOpen.addEventListener('click', this.showWindow.bind(this));
   }
 
   _addHandlerHideWindow() {
-    this._btnClose.addEventListener('click', this.toggleWindow.bind(this));
+    this._btnClose.addEventListener('click', this.hideWindow.bind(this));
   }
 
   addHandlerUpload(handler) {
@@ -35,8 +41,6 @@ class AddRecipeView extends View {
       handler(data);
     });
   }
-
-  _generateMarkup() {}
 }
 
 export default new AddRecipeView();

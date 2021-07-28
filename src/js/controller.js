@@ -130,7 +130,7 @@ const Controller = (function () {
 
   const clearBookmarks = model.clearBookmarks;
 
-  return { controlRecipe, init, clearBookmarks };
+  return { init };
 })();
 
 export { Controller };
